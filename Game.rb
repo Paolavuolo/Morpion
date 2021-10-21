@@ -9,86 +9,124 @@ require_relative 'lib/board'
 
 class Game
 
-  attr_accessor :board, :current_player1, :current_player2 
+  attr_accessor :board, :player1, :player2  
 
-  def initialize
+   def initialize
+
+    @board = Board.new
+     
+   end
+
+  
+  def ask_name_of_user
 
     system "clear"
     puts "HEYYY ! Bienvenue dans ce jeu TIC TAC TOE"
 
     puts "Joueur 1, ton symbole sera X, choisis ID :"
     print ">"
-    id_1 = gets.chomp
 
-    player1 = Player.new(id_1, "X")
+    user_name = gets.chomp
+
+
+    @player1 = Player.new(user_name, "X")
 
     puts 
     puts "A toi joueur 2, ton symbole sera le O, choisis ton ID:"
-    id_2 = gets.chomp
+    print ">"
 
-    player2 = Player.new(id_2, "O")
+    user_name = gets.chomp
 
-    @@player_array = Array.new 
 
-    @@player_array << player1 << player2
-
-    @current_player1 = player1
-    @current_player2 = player2
-
-    @board = Board.new
+    @player2 = Player.new(user_name, "O")
 
   end
+
 
 
   def start
 
-    while @board.victory? == false
-      self.turn 
-    end 
+    while @board.win == false
+      self.turn
+    end
+
   end
 
-  def turn 
+  def turn
 
     loop do 
 
-      system "clear"
+
+      
+
+      puts ""
+      puts "C'est le tour de #{@player1.user_name} avec le symbole suivant : #{@player1.marker}"
+      puts "A toi de jouer ! choisi une case"
+      print ">"
+
+      @board.play_turn(@player1.marker)
+      @board.display_board
+
+      puts " "
+      puts "C'est le tour de #{@player2.user_name} avec le symbole suivant : #{@player2.marker}"
+      puts "A toi de jouer #{@player2.user_name} ! choisi une case"
+
+      @board.play_turn(@player2.marker)
 
       @board.display_board
 
-      puts ""
-      puts "C'est le tour de #{@current_player1.player} avec le symbole suivant : #{@current_player1.marker}"
-      puts "A toi de jouer ! choisi une case"
-      print ">"
+      if @board.win == true 
 
-      @board.play_turn(@current_player1.marker)
-
-      puts "C'est le tour de #{@current_player2.player} avec le symbole suivant : #{@current_player2.marker}"
-      puts "A toi de jouer ! choisi une case"
-      print ">"
-
-      @board.play_turn(current_player2.marker)
-
-      if @board.victory? == true 
-
-        system "clear"
-        puts "=============="
-        puts "Voici l'état du jeu :"
+        puts " Tu as gagné "
 
         @board.display_board
 
-        puts " "
-        puts "#{@current_player1.player} a gagné"
-        puts 
         break
+
       end
+
     end
   end 
+
+  def new_game?
+
+    puts "Play again ?"
+    print ">"
+
+    answer = gets.chomp.to_s
+
+    if answer == "Yes"
+
+      @board = Board.new
+
+      self.start
+    end
+    
+  end
+
+  def perform
+
+    ask_name_of_user
+
+    #puts "le nom du joueur 1 est #{@players1.user_name} et son symbole est #{@players1.marker}"
+    #puts "le nom du joueur 2 est #{@players2.user_name} et son symbole est #{@players2.marker}"
+
+    @board.display_board
+
+    start 
+
+    new_game?
+    
+  end
 
 
 
 end
 
-game = Game.new
-game.start
+Game.new.perform
+
+
+
+
 
 
