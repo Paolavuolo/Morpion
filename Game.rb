@@ -14,6 +14,7 @@ class Game
    def initialize
 
     @board = Board.new
+    @Players_array = Array.new
      
    end
 
@@ -30,6 +31,7 @@ class Game
 
 
     @player1 = Player.new(user_name, "X")
+    @Players_array << @player1
 
     puts 
     puts "A toi joueur 2, ton symbole sera le O, choisis ton ID:"
@@ -39,6 +41,7 @@ class Game
 
 
     @player2 = Player.new(user_name, "O")
+    @Players_array << @player2
 
   end
 
@@ -54,12 +57,10 @@ class Game
 
   def turn
 
-    loop do 
+    loop do
 
-
-      
-
-      puts ""
+      puts " "
+      puts " --------------------------------------------------------------- "
       puts "C'est le tour de #{@player1.user_name} avec le symbole suivant : #{@player1.marker}"
       puts "A toi de jouer ! choisi une case"
       print ">"
@@ -68,6 +69,7 @@ class Game
       @board.display_board
 
       puts " "
+      puts " --------------------------------------------------------------- "
       puts "C'est le tour de #{@player2.user_name} avec le symbole suivant : #{@player2.marker}"
       puts "A toi de jouer #{@player2.user_name} ! choisi une case"
 
@@ -75,9 +77,11 @@ class Game
 
       @board.display_board
 
-      if @board.win == true 
+      if @board.win == true
 
-        puts " Tu as gagné "
+        puts " =================== "
+        puts " BRAVOO !! Tu as gagné "
+        puts " "
 
         @board.display_board
 
@@ -90,16 +94,23 @@ class Game
 
   def new_game?
 
-    puts "Play again ?"
+    puts "Play again ? Yes/No "
     print ">"
 
     answer = gets.chomp.to_s
 
     if answer == "Yes"
 
+      system "clear"
+
       @board = Board.new
 
       self.start
+
+    else answer == "No"
+
+      puts "Merci d'avoir joué !"
+
     end
     
   end
@@ -107,9 +118,6 @@ class Game
   def perform
 
     ask_name_of_user
-
-    #puts "le nom du joueur 1 est #{@players1.user_name} et son symbole est #{@players1.marker}"
-    #puts "le nom du joueur 2 est #{@players2.user_name} et son symbole est #{@players2.marker}"
 
     @board.display_board
 
