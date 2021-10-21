@@ -22,7 +22,19 @@ class Game
   def ask_name_of_user
 
     system "clear"
-    puts "HEYYY ! Bienvenue dans ce jeu TIC TAC TOE"
+    puts " 
+
+    "
+    puts " "
+    puts "..............................|   ========     ====    ===    ========   =     ,====     =======    ==    =====  | ....................."
+    puts "............................. |      ||         ||    |          ||     / *   |            ||      *  *  ||__    | ....................."
+    puts "..............................|      ||         ||    |          ||    /---*  |            ||     *    * ||__]   | ....................."
+    puts "............................. |      ||        _||_    ===   o   ||   /     *  *===  o     ||      *__*  ||____  | ....................."
+    puts "..............................|      --       ------   ---       ||  /       *  ---        --       --     ----  | ....................."
+    puts " "
+    puts " _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  _HEYYY ! Bienvenue dans ce jeu TIC TAC TOE_ _ _ _  _ _ _ _ _ _ _ _ __ _ _ _ _ _ _ __ "
+    puts " "
+    puts " "
 
     puts "Joueur 1, ton symbole sera X, choisis ID :"
     print ">"
@@ -69,7 +81,7 @@ class Game
       @board.display_board
 
       puts " "
-      puts " --------------------------------------------------------------- "
+      puts " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ "
       puts "C'est le tour de #{@player2.user_name} avec le symbole suivant : #{@player2.marker}"
       puts "A toi de jouer #{@player2.user_name} ! choisi une case"
 
@@ -79,7 +91,7 @@ class Game
 
       if @board.win == true
 
-        puts " =================== "
+        puts " ===================================== "
         puts " BRAVOO !! Tu as gagné "
         puts " "
 
@@ -94,6 +106,9 @@ class Game
 
   def new_game?
 
+    puts " "
+    puts " ----------------------------------------- "
+
     puts "Play again ? Yes/No "
     print ">"
 
@@ -104,6 +119,7 @@ class Game
       system "clear"
 
       @board = Board.new
+      @board.display_board
 
       self.start
 
